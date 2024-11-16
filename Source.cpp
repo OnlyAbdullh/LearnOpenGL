@@ -113,22 +113,30 @@ int main() {
 
     // Vertex data
     float positions[] = {
-        -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f,
+         -0.5f, -0.5f,
+         0.5f,  -0.5f,
+         0.5f,  0.5f, 
+         -0.5f,  0.5f, 
+         
     };
-
-    // Generate VAO and VBO
+    unsigned int indices[] = {
+        0,1,2,
+        2,3,0
+    }; 
     unsigned int buffer;
     glGenBuffers(1, &buffer);
-
-
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-
-    // Set vertex attributes
+    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
+          
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+
+
+    unsigned int ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+     
 
     ShaderProgramSource source = parseShader( "D:/LearnOpenGL/basic.shader");
   
@@ -140,7 +148,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         // Draw the triangle
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES,  6,GL_UNSIGNED_INT,nullptr);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
