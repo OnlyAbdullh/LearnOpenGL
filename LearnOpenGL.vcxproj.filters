@@ -32,6 +32,9 @@
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="basic.shader">
@@ -42,10 +45,16 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBugger.h">
+    <ClInclude Include="VertexBuffer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="IndexBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferLayout.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
