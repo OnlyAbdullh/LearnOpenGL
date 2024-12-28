@@ -1,14 +1,17 @@
-#include <iostream>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
-  
-#include "IndexBuffer.h"
-#include "Renderer.h"
-#include "VertexBufferLayout.h"
+   
+
+#include "VertexBuffer.h"
 #include "VertexArray.h"
+#include "VertexBufferLayout.h"
+#include "IndexBuffer.h"
 #include "Shader.h"
  
 
@@ -48,11 +51,7 @@ int main() {
             -0.5f,  0.5f,
         };
         unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
-
-        unsigned int vao;
-        GLCall(glGenVertexArrays(1, &vao));
-        GLCall(glBindVertexArray(vao));
-
+ 
         VertexArray va;
         VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
@@ -70,26 +69,21 @@ int main() {
         ib.Unbind();
         shader.Unbind();
 
+        Renderer renderer;
         float r = 0.0f;
-        float increament = 0.05f;
+        float increment = 0.05f;
 
-        while (!glfwWindowShouldClose(window)) {
-            GLCall(glClear(GL_COLOR_BUFFER_BIT));
-
+        while (!glfwWindowShouldClose(window)) { 
+            renderer.Clear();
             shader.Bind();
             shader.SetUniform4("u_Color", r, 0.3f, 0.8f, 1.0f); 
-            va.Bind();
-            vb.Bind();
-            ib.Bind();
-           
-            GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+     
+            renderer.Draw(va, ib, shader);
 
-            if (r > 1.0f)
-                increament = -0.05f;
-            else if (r < 0.0f)
-                increament = 0.05f;
+            r += increment;
+            if (r > 1.0f || r < 0.0f) increment = -increment;
 
-            r += increament;
+            r += increment;
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
