@@ -4,8 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
- 
-
+  
 #include "IndexBuffer.h"
 #include "Renderer.h"
 #include "VertexBufferLayout.h"
@@ -31,9 +30,9 @@ int main() {
         glfwTerminate();
         return -1;
     }
-
-    glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+    glfwMakeContextCurrent(window);
+   
     if (!gladLoadGL()) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
@@ -63,7 +62,7 @@ int main() {
 
         IndexBuffer ib(indices, 6);
 
-        Shader shader("res/Shaders/basic.shader");
+        Shader shader("basic.shader");
         shader.Bind();
         shader.SetUniform4("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
         va.Unbind();
@@ -79,10 +78,10 @@ int main() {
 
             shader.Bind();
             shader.SetUniform4("u_Color", r, 0.3f, 0.8f, 1.0f); 
-             
+            va.Bind();
             vb.Bind();
             ib.Bind();
-
+           
             GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
             if (r > 1.0f)
